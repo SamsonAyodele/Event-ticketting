@@ -15,6 +15,13 @@ const {
   updateTicket,
   deleteTicket,
 } = require("./controllers/ticket.controller");
+const {
+  createUser,
+  getAllUser,
+  getUserById,
+  updateUser,
+  deleteUser,
+} = require("./controllers/user.controller");
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
@@ -43,6 +50,12 @@ server.get("/ticket", getAllTicket);
 server.get("/ticket/:ticketId", getTicketById);
 server.put("/ticket/:ticketId", updateTicket);
 server.delete("/ticket/:ticketId", deleteTicket);
+
+server.post("/user", createUser);
+server.get("/user", getAllUser);
+server.get("/user/:userId", getUserById);
+server.put("/user/:userId", updateUser);
+server.delete("/user/:userId", deleteUser);
 
 server.listen(4747, async () => {
   console.log("server is listening on port 4747");

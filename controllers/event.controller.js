@@ -93,7 +93,7 @@ const deleteEvent = async (req, res) => {
         message: "Event does not exist",
       });
     }
-    let event = await Event.findOneAndDelete(eventId);
+    let event = await Event.findByIdAndDelete(eventId);
     res.status(200).json({
       message: "event deleted successfully",
       data: event,

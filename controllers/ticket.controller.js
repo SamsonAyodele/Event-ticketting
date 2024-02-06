@@ -2,12 +2,14 @@ const { Ticket } = require("../models/ticket.model");
 
 const createTicket = async (req, res) => {
   try {
-    // let ticketExist = await Ticket.findOne({ name: req.body.name });
-    // if (ticketExist) {
-    //   res.status(404).json({
-    //     message: "Ticket already exist",
-    //   });
-    // }
+    let ticketExist = await Ticket.findOne({
+      ticketOwner: req.body.ticketOwner,
+    });
+    if (ticketExist) {
+      res.status(404).json({
+        message: "Ticket already exist",
+      });
+    }
     let ticket = new Ticket(req.body);
     await ticket.save();
     res.status(200).json({
@@ -97,7 +99,7 @@ const deleteTicket = async (req, res) => {
         message: "ticket not found",
       });
     }
-    let ticket = await Ticket.findOneAndDelete(ticketId);
+    let ticket = await Ticket.findByIdAndDelete(ticketId);
     res.status(200).json({
       message: "ticket deleted successfully",
       data: ticket,
