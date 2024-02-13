@@ -22,6 +22,8 @@ const {
   updateUser,
   deleteUser,
 } = require("./controllers/user.controller");
+const { validateSignUpMiddleware } = require("./validators/auth.validator");
+const { signUpUser } = require("./controllers/auth.controller");
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
@@ -56,6 +58,8 @@ server.get("/user", getAllUser);
 server.get("/user/:userId", getUserById);
 server.put("/user/:userId", updateUser);
 server.delete("/user/:userId", deleteUser);
+
+server.post("/signup", validateSignUpMiddleware, signUpUser);
 
 server.listen(4747, async () => {
   console.log("server is listening on port 4747");
