@@ -1,13 +1,7 @@
 const express = require("express");
 const server = express();
 const mongoose = require("mongoose");
-const {
-  createEvent,
-  getAllEvent,
-  getEventById,
-  updateEvent,
-  deleteEvent,
-} = require("./controllers/event.controller");
+const { createEvent, getAllEvent, getEventById, updateEvent, deleteEvent } = require("./controllers/event.controller");
 const {
   createTicket,
   getAllTicket,
@@ -15,18 +9,13 @@ const {
   updateTicket,
   deleteTicket,
 } = require("./controllers/ticket.controller");
-const {
-  createUser,
-  getAllUser,
-  getUserById,
-  updateUser,
-  deleteUser,
-} = require("./controllers/user.controller");
+const { createUser, getAllUser, getUserById, updateUser, deleteUser } = require("./controllers/user.controller");
 const {
   validateSignUpMiddleware,
   validateLoginMiddleware,
+  validateForgotPasswordMiddleware,
 } = require("./validators/auth.validator");
-const { signUpUser, signInUser } = require("./controllers/auth.controller");
+const { signUpUser, signInUser, forgotPassword } = require("./controllers/auth.controller");
 
 server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
@@ -64,6 +53,7 @@ server.delete("/user/:userId", deleteUser);
 
 server.post("/signup", validateSignUpMiddleware, signUpUser);
 server.post("/signin", validateLoginMiddleware, signInUser);
+server.post("/forgotPassword", validateForgotPasswordMiddleware, forgotPassword);
 
 server.listen(4747, async () => {
   console.log("server is listening on port 4747");
